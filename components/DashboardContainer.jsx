@@ -12,18 +12,18 @@ export default function DashboardContainer({ initialData }) {
   const [data, setData] = useState(initialData);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
 
   // Cargar preferencia de tema guardada al montar el componente
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
-    if (savedTheme === 'light') {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
-    } else {
+    if (savedTheme === 'dark') {
       document.documentElement.classList.remove('light');
       document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
     }
   }, []);
 
