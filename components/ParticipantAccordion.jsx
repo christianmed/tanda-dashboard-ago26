@@ -116,9 +116,9 @@ export default function ParticipantAccordion({ participants = [] }) {
             No se encontraron participantes que coincidan con los filtros.
           </div>
         ) : (
-          filteredParticipants.map((p) => {
+          filteredParticipants.map((p, idx) => {
             const isExpanded = expandedId === p.id;
-            const uniqueKey = p.id || `participant-${p.noAsignado}-${p.nombre}`;
+            const uniqueKey = `participant-${p.id || idx}-${p.noAsignado || idx}`;
 
             return (
               <div
