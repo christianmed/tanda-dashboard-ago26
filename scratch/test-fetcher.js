@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-// Load env
 const envPath = path.join(process.cwd(), '.env.local');
 const envContent = fs.readFileSync(envPath, 'utf8');
 
@@ -14,19 +13,14 @@ if (matchKey) process.env.GOOGLE_PRIVATE_KEY = matchKey[1].trim().replace(/\\n/g
 const matchId = envContent.match(/SPREADSHEET_ID=["']?([^"'\n]+)["']?/);
 if (matchId) process.env.SPREADSHEET_ID = matchId[1].trim();
 
-const { fetchGoogleSheetsData } = require('../lib/googleSheets.js');
+const { getTandaData } = require('../lib/dataFetcher.js');
 
-async function testFetcher() {
-  try {
-    console.log('Testing fetchGoogleSheetsData()...');
-    const data = await fetchGoogleSheetsData();
-    console.log('✅ Google Sheets fetch SUCCESSFUL!');
-    console.log('- Participants count:', data.dashboard.length);
-    console.log('- KPIs count:', data.kpis.length);
-    console.log('- Payments count:', data.registroPagos.length);
-  } catch (err) {
-    console.error('❌ Fetcher Error:', err);
-  }
+async function testFull() {
+  const data = await getTandaData();
+  console.log('=== PROCESSED DATA FROM GOOGLE SHEETS ===');
+  console.log('KPIs:', JSON.stringify(data.kpis, null, 2));
+  console.log('\nAngel (P1):', JSON.stringify(data.participants[0], null, 2));
+  console.log('\nIndira (P7):', JSON.stringify(data.participants[6], null, 2));
 }
 
-testFetcher();
+testFull();

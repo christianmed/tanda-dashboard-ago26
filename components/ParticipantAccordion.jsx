@@ -157,7 +157,7 @@ export default function ParticipantAccordion({ participants = [] }) {
                   <div className="space-y-1 pt-1">
                     <div className="flex justify-between text-xs font-semibold">
                       <span className="text-[var(--text-muted)]">Progreso de Pago</span>
-                      <span className="text-emerald-500 font-bold">${p.totalPagado} ({p.porcentajeProgreso}%)</span>
+                      <span className="text-emerald-500 font-bold">${p.totalPagado?.toLocaleString('es-MX')} ({p.porcentajeProgreso}%)</span>
                     </div>
                     <div className="w-full bg-[var(--bg-input)] h-2 rounded-full overflow-hidden">
                       <div
@@ -209,26 +209,26 @@ export default function ParticipantAccordion({ participants = [] }) {
                       
                       <div className="bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
                         <div className="text-[var(--text-muted)] text-[11px] font-semibold">Target al Día</div>
-                        <div className="text-sm font-bold text-[var(--text-main)]">${p.targetAlDia}</div>
+                        <div className="text-sm font-bold text-[var(--text-main)]">${p.targetAlDia?.toLocaleString('es-MX')}</div>
                       </div>
 
                       <div className="bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
                         <div className="text-[var(--text-muted)] text-[11px] font-semibold">Deuda Total</div>
                         <div className={`text-sm font-bold ${p.deudaTotal > 0 ? 'text-amber-500' : 'text-emerald-500'}`}>
-                          ${p.deudaTotal}
+                          ${p.deudaTotal?.toLocaleString('es-MX')}
                         </div>
                       </div>
 
                       <div className="bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
                         <div className="text-[var(--text-muted)] text-[11px] font-semibold">Saldo / Diferencia</div>
                         <div className={`text-sm font-bold ${p.saldo < 0 ? 'text-rose-500' : 'text-emerald-500'}`}>
-                          ${p.saldo}
+                          ${p.saldo?.toLocaleString('es-MX')}
                         </div>
                       </div>
 
                       <div className="bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
                         <div className="text-[var(--text-muted)] text-[11px] font-semibold">Cuota Semanal</div>
-                        <div className="text-sm font-bold text-[var(--text-main)]">${p.cuotaSemanal}/sem</div>
+                        <div className="text-sm font-bold text-[var(--text-main)]">${p.cuotaSemanal?.toLocaleString('es-MX')}/sem</div>
                       </div>
 
                     </div>

@@ -69,8 +69,8 @@ export default function KpiCarousel({ kpis }) {
           {/* Barra de progreso de fondo */}
           <div className="space-y-1">
             <div className="flex justify-between text-[10px] text-[var(--text-muted)] font-semibold">
-              <span>Fondo: ${fondoProximaMoto}</span>
-              <span className="text-amber-500 font-bold">Falta: ${faltante}</span>
+              <span>Fondo: ${fondoProximaMoto.toLocaleString('es-MX')}</span>
+              <span className="text-amber-500 font-bold">Falta: ${faltante.toLocaleString('es-MX')}</span>
             </div>
             <div className="w-full bg-[var(--bg-input)] h-2 rounded-full overflow-hidden">
               <div 

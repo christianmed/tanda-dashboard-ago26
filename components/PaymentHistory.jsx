@@ -67,7 +67,7 @@ export default function PaymentHistory({ payments = [] }) {
 
               <div className="text-right">
                 <div className="text-sm font-black text-emerald-500">
-                  +${pay.monto}
+                  +${pay.monto?.toLocaleString('es-MX')}
                 </div>
                 <div className="text-[10px] text-emerald-600 font-bold">Abonado</div>
               </div>
