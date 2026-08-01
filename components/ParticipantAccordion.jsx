@@ -9,17 +9,14 @@ import {
   CheckCircle2, 
   Clock, 
   Bike, 
-  Calendar, 
-  DollarSign, 
-  ExternalLink 
+  Calendar 
 } from 'lucide-react';
 
 export default function ParticipantAccordion({ participants = [] }) {
   const [search, setSearch] = useState('');
-  const [filterStatus, setFilterStatus] = useState('ALL'); // ALL, MORA, ADELANTADO, AL_DIA
+  const [filterStatus, setFilterStatus] = useState('ALL');
   const [expandedId, setExpandedId] = useState(null);
 
-  // Filtrar participantes por búsqueda y chip de estatus
   const filteredParticipants = participants.filter(p => {
     const matchesSearch = 
       p.nombre.toLowerCase().includes(search.toLowerCase()) ||
@@ -43,20 +40,20 @@ export default function ParticipantAccordion({ participants = [] }) {
     const est = (estado || '').toLowerCase();
     if (est.includes('adelantado')) {
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
           <CheckCircle2 className="w-3 h-3" /> Adelantado
         </span>
       );
     }
     if (est.includes('día') || est.includes('dia')) {
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-500 border border-blue-500/20">
           <CheckCircle2 className="w-3 h-3" /> Al Día
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-500 border border-rose-500/20">
         <AlertTriangle className="w-3 h-3" /> Atraso
       </span>
     );
@@ -67,13 +64,13 @@ export default function ParticipantAccordion({ participants = [] }) {
       {/* Buscador e Interfaz de Filtros */}
       <div className="space-y-2.5">
         <div className="relative">
-          <Search className="w-4 h-4 absolute left-3 top-3 text-gray-500" />
+          <Search className="w-4 h-4 absolute left-3 top-3 text-[var(--text-muted)]" />
           <input
             type="text"
             placeholder="Buscar participante o modelo de moto..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-[#131823] text-sm text-white placeholder-gray-500 rounded-xl pl-9 pr-4 py-2.5 border border-gray-800 focus:outline-none focus:border-emerald-500/50 transition-colors"
+            className="w-full bg-[var(--bg-input)] text-sm text-[var(--text-main)] placeholder-[var(--text-muted)] rounded-xl pl-9 pr-4 py-2.5 border border-[var(--border-main)] focus:outline-none focus:border-emerald-500 transition-colors shadow-sm"
           />
         </div>
 
@@ -81,30 +78,30 @@ export default function ParticipantAccordion({ participants = [] }) {
         <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
           <button
             onClick={() => setFilterStatus('ALL')}
-            className={`px-3 py-1.5 rounded-lg border font-medium whitespace-nowrap transition-all ${
+            className={`px-3 py-1.5 rounded-xl border font-semibold whitespace-nowrap transition-all ${
               filterStatus === 'ALL'
-                ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300'
-                : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-200'
+                ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-500'
+                : 'bg-[var(--bg-card)] border-[var(--border-main)] text-[var(--text-muted)] hover:text-[var(--text-main)]'
             }`}
           >
             Todos ({participants.length})
           </button>
           <button
             onClick={() => setFilterStatus('MORA')}
-            className={`px-3 py-1.5 rounded-lg border font-medium whitespace-nowrap transition-all ${
+            className={`px-3 py-1.5 rounded-xl border font-semibold whitespace-nowrap transition-all ${
               filterStatus === 'MORA'
-                ? 'bg-rose-500/20 border-rose-500/50 text-rose-300'
-                : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-200'
+                ? 'bg-rose-500/20 border-rose-500/50 text-rose-500'
+                : 'bg-[var(--bg-card)] border-[var(--border-main)] text-[var(--text-muted)] hover:text-[var(--text-main)]'
             }`}
           >
             En Mora ({participants.filter(p => p.estado.toLowerCase().includes('atraso')).length})
           </button>
           <button
             onClick={() => setFilterStatus('ADELANTADO')}
-            className={`px-3 py-1.5 rounded-lg border font-medium whitespace-nowrap transition-all ${
+            className={`px-3 py-1.5 rounded-xl border font-semibold whitespace-nowrap transition-all ${
               filterStatus === 'ADELANTADO'
-                ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300'
-                : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-gray-200'
+                ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-500'
+                : 'bg-[var(--bg-card)] border-[var(--border-main)] text-[var(--text-muted)] hover:text-[var(--text-main)]'
             }`}
           >
             Adelantados ({participants.filter(p => p.estado.toLowerCase().includes('adelantado')).length})
@@ -113,43 +110,44 @@ export default function ParticipantAccordion({ participants = [] }) {
       </div>
 
       {/* Lista Acordeón de Participantes */}
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         {filteredParticipants.length === 0 ? (
-          <div className="text-center py-8 text-gray-500 text-sm bg-gray-900/40 rounded-xl border border-gray-800">
+          <div className="text-center py-8 text-[var(--text-muted)] text-sm bg-[var(--bg-card)] rounded-2xl border border-[var(--border-main)]">
             No se encontraron participantes que coincidan con los filtros.
           </div>
         ) : (
           filteredParticipants.map((p) => {
             const isExpanded = expandedId === p.id;
+            const uniqueKey = p.id || `participant-${p.noAsignado}-${p.nombre}`;
 
             return (
               <div
-                key={p.id || `participant-${p.noAsignado}-${p.nombre}`}
-                className="bg-[#121722] border border-gray-800/90 rounded-2xl overflow-hidden transition-all duration-200 shadow-md"
+                key={uniqueKey}
+                className="bg-[var(--bg-card)] border border-[var(--border-main)] rounded-2xl overflow-hidden transition-all duration-200 shadow-sm theme-transition"
               >
                 {/* Cabecera del Acordeón */}
                 <button
                   onClick={() => toggleExpand(p.id)}
-                  className="w-full p-4 text-left flex flex-col gap-3 hover:bg-gray-800/30 transition-colors"
+                  className="w-full p-4 text-left flex flex-col gap-3 hover:bg-[var(--bg-card-hover)] transition-colors"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <span className="w-7 h-7 rounded-lg bg-gray-800 text-gray-300 text-xs font-bold flex items-center justify-center border border-gray-700/50">
+                      <span className="w-8 h-8 rounded-xl bg-[var(--bg-input)] text-[var(--text-main)] text-xs font-black flex items-center justify-center border border-[var(--border-main)] shrink-0">
                         #{p.noAsignado || p.id}
                       </span>
                       <div>
-                        <h3 className="font-bold text-white text-base leading-tight">
+                        <h3 className="font-bold text-[var(--text-main)] text-base leading-tight">
                           {p.nombre}
                         </h3>
-                        <p className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
-                          <Bike className="w-3 h-3 text-emerald-400/70" /> {p.modeloMoto}
+                        <p className="text-xs text-[var(--text-muted)] flex items-center gap-1 mt-0.5 font-medium">
+                          <Bike className="w-3.5 h-3.5 text-emerald-500" /> {p.modeloMoto}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
                       {getStatusBadge(p.estado)}
-                      <div className="text-gray-400 p-1">
+                      <div className="text-[var(--text-muted)] p-1">
                         {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                       </div>
                     </div>
@@ -157,11 +155,11 @@ export default function ParticipantAccordion({ participants = [] }) {
 
                   {/* Barra de progreso rápida */}
                   <div className="space-y-1 pt-1">
-                    <div className="flex justify-between text-xs font-medium">
-                      <span className="text-gray-400">Progreso de Pago</span>
-                      <span className="text-emerald-400 font-semibold">${p.totalPagado} ({p.porcentajeProgreso}%)</span>
+                    <div className="flex justify-between text-xs font-semibold">
+                      <span className="text-[var(--text-muted)]">Progreso de Pago</span>
+                      <span className="text-emerald-500 font-bold">${p.totalPagado} ({p.porcentajeProgreso}%)</span>
                     </div>
-                    <div className="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                    <div className="w-full bg-[var(--bg-input)] h-2 rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
                           p.estado.toLowerCase().includes('atraso') ? 'bg-rose-500' : 'bg-emerald-500'
@@ -174,74 +172,74 @@ export default function ParticipantAccordion({ participants = [] }) {
 
                 {/* Detalle Desplegable */}
                 {isExpanded && (
-                  <div className="px-4 pb-4 pt-2 border-t border-gray-800/60 bg-[#0d1119] space-y-4">
+                  <div className="px-4 pb-4 pt-2 border-t border-[var(--border-main)] bg-[var(--bg-card-subtle)] space-y-4">
                     
                     {/* Imagen de la motocicleta y estado de entrega */}
-                    <div className="flex items-center gap-4 bg-gray-900/60 p-3 rounded-xl border border-gray-800">
+                    <div className="flex items-center gap-4 bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
                       {p.imagenMoto && (
                         <img
                           src={p.imagenMoto}
                           alt={p.modeloMoto}
-                          className="w-16 h-16 object-cover rounded-lg border border-gray-700 bg-gray-800 shrink-0"
+                          className="w-16 h-16 object-cover rounded-lg border border-[var(--border-main)] bg-[var(--bg-input)] shrink-0"
                           onError={(e) => {
                             e.target.style.display = 'none';
                           }}
                         />
                       )}
                       <div className="space-y-1 text-xs">
-                        <div className="text-gray-400">
-                          Estatus Moto: <span className="text-white font-semibold">{p.estatusMoto}</span>
+                        <div className="text-[var(--text-muted)] font-medium">
+                          Estatus Moto: <span className="text-[var(--text-main)] font-bold">{p.estatusMoto}</span>
                         </div>
-                        <div className="text-gray-400 flex items-center gap-1">
-                          <Calendar className="w-3 h-3 text-emerald-400" /> Entrega calculada:{' '}
-                          <span className="text-gray-200">
-                            {p.fechaEntregaCalculada ? String(p.fechaEntregaCalculada).split('T')[0] : 'N/A'}
+                        <div className="text-[var(--text-muted)] flex items-center gap-1 font-medium">
+                          <Calendar className="w-3.5 h-3.5 text-emerald-500" /> Entrega calculada:{' '}
+                          <span className="text-[var(--text-main)] font-semibold">
+                            {p.fechaEntregaCalculada || 'N/A'}
                           </span>
                         </div>
                         {p.registroEntrega && (
-                          <div className="text-emerald-400 font-medium text-[11px]">
-                            ✓ Entregada el: {String(p.registroEntrega).split('T')[0]}
+                          <div className="text-emerald-500 font-bold text-[11px]">
+                            ✓ Entregada el: {p.registroEntrega}
                           </div>
                         )}
                       </div>
                     </div>
 
                     {/* Grilla de Métricas Financieras del Usuario */}
-                    <div className="grid grid-cols-2 gap-2.5 text-xs">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 text-xs">
                       
-                      <div className="bg-[#141a27] p-2.5 rounded-xl border border-gray-800">
-                        <div className="text-gray-400 text-[11px]">Target al Día</div>
-                        <div className="text-sm font-bold text-white">${p.targetAlDia}</div>
+                      <div className="bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
+                        <div className="text-[var(--text-muted)] text-[11px] font-semibold">Target al Día</div>
+                        <div className="text-sm font-bold text-[var(--text-main)]">${p.targetAlDia}</div>
                       </div>
 
-                      <div className="bg-[#141a27] p-2.5 rounded-xl border border-gray-800">
-                        <div className="text-gray-400 text-[11px]">Deuda Total</div>
-                        <div className={`text-sm font-bold ${p.deudaTotal > 0 ? 'text-amber-400' : 'text-emerald-400'}`}>
+                      <div className="bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
+                        <div className="text-[var(--text-muted)] text-[11px] font-semibold">Deuda Total</div>
+                        <div className={`text-sm font-bold ${p.deudaTotal > 0 ? 'text-amber-500' : 'text-emerald-500'}`}>
                           ${p.deudaTotal}
                         </div>
                       </div>
 
-                      <div className="bg-[#141a27] p-2.5 rounded-xl border border-gray-800">
-                        <div className="text-gray-400 text-[11px]">Saldo / Diferencia</div>
-                        <div className={`text-sm font-bold ${p.saldo < 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
+                      <div className="bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
+                        <div className="text-[var(--text-muted)] text-[11px] font-semibold">Saldo / Diferencia</div>
+                        <div className={`text-sm font-bold ${p.saldo < 0 ? 'text-rose-500' : 'text-emerald-500'}`}>
                           ${p.saldo}
                         </div>
                       </div>
 
-                      <div className="bg-[#141a27] p-2.5 rounded-xl border border-gray-800">
-                        <div className="text-gray-400 text-[11px]">Cuota Semanal</div>
-                        <div className="text-sm font-bold text-white">${p.cuotaSemanal}/sem</div>
+                      <div className="bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
+                        <div className="text-[var(--text-muted)] text-[11px] font-semibold">Cuota Semanal</div>
+                        <div className="text-sm font-bold text-[var(--text-main)]">${p.cuotaSemanal}/sem</div>
                       </div>
 
                     </div>
 
                     {/* Cuotas Completadas vs Vencidas */}
-                    <div className="flex items-center justify-between text-xs bg-gray-900/50 p-2.5 rounded-xl border border-gray-800">
-                      <div className="flex items-center gap-1.5 text-emerald-400 font-medium">
-                        <CheckCircle2 className="w-4 h-4" /> Cuotas completadas: <span className="font-bold text-white">{p.cuotasCompletadas}</span>
+                    <div className="flex items-center justify-between text-xs bg-[var(--bg-card)] p-3 rounded-xl border border-[var(--border-main)]">
+                      <div className="flex items-center gap-1.5 text-emerald-500 font-semibold">
+                        <CheckCircle2 className="w-4 h-4" /> Cuotas completadas: <span className="font-bold text-[var(--text-main)]">{p.cuotasCompletadas}</span>
                       </div>
-                      <div className="flex items-center gap-1.5 text-rose-400 font-medium">
-                        <Clock className="w-4 h-4" /> Vencidas: <span className="font-bold text-white">{p.cuotasVencidas}</span>
+                      <div className="flex items-center gap-1.5 text-rose-500 font-semibold">
+                        <Clock className="w-4 h-4" /> Vencidas: <span className="font-bold text-[var(--text-main)]">{p.cuotasVencidas}</span>
                       </div>
                     </div>
 

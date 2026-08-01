@@ -12,7 +12,7 @@ export default function BottomNav({ activeTab, setActiveTab, errorCount = 0 }) {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-[#0f141d]/95 backdrop-blur-lg border-t border-gray-800/80 px-2 py-2 pb-safe">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-[var(--bg-header)] backdrop-blur-lg border-t border-[var(--border-main)] px-2 py-2 pb-safe md:hidden theme-transition shadow-lg">
       <div className="max-w-md mx-auto grid grid-cols-4 gap-1">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -24,8 +24,8 @@ export default function BottomNav({ activeTab, setActiveTab, errorCount = 0 }) {
               onClick={() => setActiveTab(tab.id)}
               className={`relative flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all ${
                 isActive
-                  ? 'text-emerald-400 bg-emerald-500/10 font-bold'
-                  : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/40 font-medium'
+                  ? 'text-emerald-500 bg-emerald-500/10 font-bold'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-card-hover)] font-semibold'
               }`}
             >
               <div className="relative">
@@ -38,7 +38,7 @@ export default function BottomNav({ activeTab, setActiveTab, errorCount = 0 }) {
               </div>
               <span className="text-[10px] mt-1 tracking-tight">{tab.label}</span>
               {isActive && (
-                <span className="absolute bottom-0 w-8 h-0.5 bg-emerald-400 rounded-full"></span>
+                <span className="absolute bottom-0 w-8 h-0.5 bg-emerald-500 rounded-full"></span>
               )}
             </button>
           );
