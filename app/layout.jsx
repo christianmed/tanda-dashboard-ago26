@@ -14,8 +14,8 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es" className="light">
-      <body className="min-h-screen theme-transition">
+    <html lang="es" className="light" suppressHydrationWarning>
+      <body className="min-h-screen theme-transition" suppressHydrationWarning>
         {children}
       </body>
     </html>
