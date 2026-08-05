@@ -10,7 +10,7 @@ import {
   LayoutDashboard, 
   Users, 
   History, 
-  AlertTriangle 
+  CreditCard 
 } from 'lucide-react';
 
 export default function Header({ 
@@ -21,14 +21,13 @@ export default function Header({
   theme, 
   toggleTheme, 
   activeTab, 
-  setActiveTab, 
-  errorCount = 0 
+  setActiveTab 
 }) {
   const tabs = [
     { id: 'dashboard', label: 'Resumen', icon: LayoutDashboard },
     { id: 'participants', label: 'Participantes', icon: Users },
     { id: 'payments', label: 'Pagos', icon: History },
-    { id: 'errors', label: 'Errores', icon: AlertTriangle, badge: errorCount },
+    { id: 'register', label: 'Abonar', icon: CreditCard },
   ];
 
   return (
@@ -72,13 +71,6 @@ export default function Header({
               >
                 <Icon className="w-4 h-4" />
                 <span>{tab.label}</span>
-                {tab.badge > 0 && (
-                  <span className={`px-1.5 py-0.5 text-[10px] font-extrabold rounded-full ${
-                    isActive ? 'bg-white text-emerald-600' : 'bg-rose-500 text-white'
-                  }`}>
-                    {tab.badge}
-                  </span>
-                )}
               </button>
             );
           })}

@@ -5,7 +5,7 @@ import Header from './Header';
 import KpiCarousel from './KpiCarousel';
 import ParticipantAccordion from './ParticipantAccordion';
 import PaymentHistory from './PaymentHistory';
-import ErrorLogs from './ErrorLogs';
+import RegisterPaymentForm from './RegisterPaymentForm';
 import BottomNav from './BottomNav';
 
 export default function DashboardContainer({ initialData }) {
@@ -56,7 +56,7 @@ export default function DashboardContainer({ initialData }) {
     }
   };
 
-  const { kpis, participants, payments, logs } = data;
+  const { kpis, participants, payments } = data;
 
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] pb-24 md:pb-12 flex flex-col antialiased theme-transition">
@@ -71,7 +71,6 @@ export default function DashboardContainer({ initialData }) {
         toggleTheme={toggleTheme}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        errorCount={logs?.length || 0}
       />
 
       {/* Contenido Principal Adaptativo: Móvil max-w-md | Escritorio max-w-7xl */}
@@ -84,7 +83,7 @@ export default function DashboardContainer({ initialData }) {
             {/* Carrusel / Grilla de Métricas Globales */}
             <KpiCarousel kpis={kpis} />
 
-            {/* Layout de Escritorio: 2 Columnas (Izquierda: Participantes | Derecha: Pagos e Incidencias) */}
+            {/* Layout de Escritorio: 2 Columnas (Izquierda: Participantes | Derecha: Registro de Pagos e Historial de 10) */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
               
               {/* Columna Principal: Participantes */}
@@ -103,14 +102,20 @@ export default function DashboardContainer({ initialData }) {
                 <ParticipantAccordion participants={participants} />
               </div>
 
-              {/* Columna Secundaria: Pagos Recientes y Log de Errores */}
+              {/* Columna Secundaria: Formulario de Abono Rápido + Historial de 10 Pagos */}
               <div className="md:col-span-5 lg:col-span-5 space-y-8">
                 
-                {/* Panel de Pagos Recientes */}
+                {/* Módulo para Registrar Abono */}
+                <RegisterPaymentForm
+                  participants={participants}
+                  onSuccess={handleRefresh}
+                />
+
+                {/* Panel de Pagos Recientes (Ampliado a 10 Pagos) */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between px-1">
                     <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
-                      Últimos Pagos Abonados
+                      Últimos 10 Pagos Abonados
                     </h2>
                     <button
                       onClick={() => setActiveTab('payments')}
@@ -119,23 +124,7 @@ export default function DashboardContainer({ initialData }) {
                       Ver historial →
                     </button>
                   </div>
-                  <PaymentHistory payments={payments?.slice(0, 5) || []} />
-                </div>
-
-                {/* Panel de Monitor de Errores */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between px-1">
-                    <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
-                      Estado del Bot / Incidencias
-                    </h2>
-                    <button
-                      onClick={() => setActiveTab('errors')}
-                      className="text-xs text-emerald-500 hover:underline font-bold"
-                    >
-                      Ver todo →
-                    </button>
-                  </div>
-                  <ErrorLogs logs={logs} />
+                  <PaymentHistory payments={payments?.slice(0, 10) || []} />
                 </div>
 
               </div>
@@ -164,13 +153,15 @@ export default function DashboardContainer({ initialData }) {
           </div>
         )}
 
-        {/* Vista: Log de Errores */}
-        {activeTab === 'errors' && (
-          <div className="space-y-4 animate-fadeIn max-w-4xl mx-auto">
-            <h2 className="text-sm font-bold text-[var(--text-main)] uppercase tracking-wider px-1">
-              Monitor de Incidencias Técnicas
-            </h2>
-            <ErrorLogs logs={logs} />
+        {/* Vista: Pestaña Dedicada a Registrar Abono */}
+        {activeTab === 'register' && (
+          <div className="space-y-4 animate-fadeIn max-w-3xl mx-auto">
+            <RegisterPaymentForm
+              participants={participants}
+              onSuccess={() => {
+                handleRefresh();
+              }}
+            />
           </div>
         )}
 
@@ -180,7 +171,6 @@ export default function DashboardContainer({ initialData }) {
       <BottomNav
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        errorCount={logs?.length || 0}
       />
     </div>
   );

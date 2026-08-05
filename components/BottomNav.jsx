@@ -1,14 +1,14 @@
 'use client';
 
 import React from 'react';
-import { LayoutDashboard, Users, History, AlertTriangle } from 'lucide-react';
+import { LayoutDashboard, Users, History, CreditCard } from 'lucide-react';
 
-export default function BottomNav({ activeTab, setActiveTab, errorCount = 0 }) {
+export default function BottomNav({ activeTab, setActiveTab }) {
   const tabs = [
     { id: 'dashboard', label: 'Resumen', icon: LayoutDashboard },
     { id: 'participants', label: 'Participantes', icon: Users },
     { id: 'payments', label: 'Pagos', icon: History },
-    { id: 'errors', label: 'Errores', icon: AlertTriangle, badge: errorCount },
+    { id: 'register', label: 'Abonar', icon: CreditCard },
   ];
 
   return (
@@ -30,11 +30,6 @@ export default function BottomNav({ activeTab, setActiveTab, errorCount = 0 }) {
             >
               <div className="relative">
                 <Icon className={`w-5 h-5 transition-transform ${isActive ? 'scale-110' : ''}`} />
-                {tab.badge > 0 && (
-                  <span className="absolute -top-1.5 -right-2 w-4 h-4 bg-rose-500 text-white text-[9px] font-extrabold rounded-full flex items-center justify-center animate-pulse">
-                    {tab.badge}
-                  </span>
-                )}
               </div>
               <span className="text-[10px] mt-1 tracking-tight">{tab.label}</span>
               {isActive && (
